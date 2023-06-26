@@ -1,0 +1,18 @@
+.primary {
+  color: var(--white-color);
+  background-color: var(--primary-color);
+  padding: 1.2rem 2rem;
+  border: none;
+  border-radius: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.primary[data-theme='dark'] {
+  color: var(--black-color);
+  background-color: var(--primary-light-color);
+}
+
+.fullwidth {
+  width: 100%;
+}

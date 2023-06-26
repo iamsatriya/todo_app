@@ -1,0 +1,17 @@
+.container {
+  background-color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  border-radius: 1.6rem;
+}
+
+.container img {
+  margin-bottom: 0.8rem;
+}
+
+.container[data-theme='dark'] {
+  background-color: var(--primary-light-color);
+}

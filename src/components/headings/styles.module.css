@@ -1,0 +1,18 @@
+h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 4rem;
+}
+
+/* h1[data-theme='dark'] {
+  color: var(--white-color);
+} */
+
+.invert {
+  color: var(--white-color);
+  background-color: initial;
+}
+
+.invert[data-theme='dark'] {
+  color: var(--black-color);
+  background-color: initial;
+}

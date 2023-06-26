@@ -1,0 +1,45 @@
+.desktop_container {
+  height: 100%;
+}
+
+.welcome_container {
+  display: none;
+}
+
+@media screen and (min-width: 450px) {
+  .desktop_container {
+    display: flex;
+  }
+  .welcome_container {
+    flex: 1;
+    display: flex;
+  }
+}
+
+.container {
+  min-width: 25vw;
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  /* justify-content: space-between; */
+  text-align: center;
+}
+
+@media screen and (min-width: 450px) and (orientation: portrait) {
+  .container {
+    min-width: 35vw;
+  }
+}
+
+.container section:first-of-type {
+  flex: 1;
+}
+
+.separator_text {
+  margin: 1.6rem 0;
+  font-weight: 600;
+}
+
+.separator_text[data-theme='dark'] {
+  color: var(--white-color);
+}
