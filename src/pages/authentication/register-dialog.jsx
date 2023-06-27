@@ -1,21 +1,20 @@
 import { forwardRef, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { ButtonPrimary, Heading3, TextInput } from '../../components';
-import { login, putAccessToken } from '../../utils';
+import { register } from '../../utils';
 import styles from './styles.module.css';
 import { ThemeContext } from '../../contexts';
 
-export const LoginDialog = forwardRef(function LoginDialog({ close }, ref) {
+export const RegisterDialog = forwardRef(function LoginDialog({ close }, ref) {
   const { theme } = useContext(ThemeContext);
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    const [email, password] = event.target;
+    const [name, email, password] = event.target;
     try {
-      const response = await login({ email: email.value, password: password.value });
+      const response = await register({ name: name.value, email: email.value, password: password.value });
       if (!response.error) {
-        putAccessToken(response.data.accessToken);
-        // TODO: Redirect to home
+        alert('Success create user');
       }
     } catch (e) {
       console.log(e);
@@ -34,17 +33,18 @@ export const LoginDialog = forwardRef(function LoginDialog({ close }, ref) {
     >
       <section data-theme={theme} className={styles.login_container}>
         <button onClick={close} />
-        <Heading3>Login</Heading3>
+        <Heading3>Register</Heading3>
         <form onSubmit={onSubmit}>
+          <TextInput id="name" label="Name" type="text" placeholder="Enter your name" />
           <TextInput id="email" label="Email" type="email" placeholder="Enter your email" />
           <TextInput id="password" label="Password" type="password" placeholder="Enter your password" />
-          <ButtonPrimary fullWidth>Login</ButtonPrimary>
+          <ButtonPrimary fullWidth>Register</ButtonPrimary>
         </form>
       </section>
     </dialog>
   );
 });
 
-LoginDialog.propTypes = {
+RegisterDialog.propTypes = {
   close: PropTypes.func.isRequired
 };
