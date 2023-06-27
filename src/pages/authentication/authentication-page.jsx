@@ -1,27 +1,17 @@
-import { useContext, useRef } from 'react';
+import { useContext } from 'react';
 import { AuthHeader, ButtonPrimary } from '../../components';
 import styles from './styles.module.css';
 import { ThemeContext } from '../../contexts';
 import { LoginDialog } from './login-dialog';
 import { RegisterDialog } from './register-dialog';
+import { UseDialog } from '../../hooks';
 
 export const AuthenticationPages = () => {
   const { theme } = useContext(ThemeContext);
-  const loginRef = useRef();
-  const showLogin = () => {
-    loginRef.current.showModal();
-  };
-  const closeLogin = () => {
-    loginRef.current.close();
-  };
 
-  const registerRef = useRef();
-  const showRegister = () => {
-    registerRef.current.showModal();
-  };
-  const closeRegister = () => {
-    registerRef.current.close();
-  };
+  const { ref: loginRef, showDialog: showLogin, closeDialog: closeLogin } = UseDialog();
+
+  const { ref: registerRef, showDialog: showRegister, closeDialog: closeRegister } = UseDialog();
 
   return (
     <>

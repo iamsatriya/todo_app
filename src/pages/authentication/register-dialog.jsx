@@ -1,13 +1,9 @@
-import { forwardRef, useContext } from 'react';
+import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import { ButtonPrimary, Heading3, TextInput } from '../../components';
+import { AuthDialog, TextInput } from '../../components';
 import { register } from '../../utils';
-import styles from './styles.module.css';
-import { ThemeContext } from '../../contexts';
 
 export const RegisterDialog = forwardRef(function LoginDialog({ close }, ref) {
-  const { theme } = useContext(ThemeContext);
-
   const onSubmit = async (event) => {
     event.preventDefault();
     const [name, email, password] = event.target;
@@ -23,25 +19,11 @@ export const RegisterDialog = forwardRef(function LoginDialog({ close }, ref) {
     }
   };
   return (
-    <dialog
-      ref={ref}
-      onClick={(event) => {
-        if (event.target.tagName.toLowerCase() === 'dialog') {
-          close();
-        }
-      }}
-    >
-      <section data-theme={theme} className={styles.login_container}>
-        <button onClick={close} />
-        <Heading3>Register</Heading3>
-        <form onSubmit={onSubmit}>
-          <TextInput id="name" label="Name" type="text" placeholder="Enter your name" />
-          <TextInput id="email" label="Email" type="email" placeholder="Enter your email" />
-          <TextInput id="password" label="Password" type="password" placeholder="Enter your password" />
-          <ButtonPrimary fullWidth>Register</ButtonPrimary>
-        </form>
-      </section>
-    </dialog>
+    <AuthDialog ref={ref} formLabel="Register" onSubmit={onSubmit} close={close}>
+      <TextInput id="name" label="Name" type="text" placeholder="Enter your name" />
+      <TextInput id="email" label="Email" type="email" placeholder="Enter your email" />
+      <TextInput id="password" label="Password" type="password" placeholder="Enter your password" />
+    </AuthDialog>
   );
 });
 

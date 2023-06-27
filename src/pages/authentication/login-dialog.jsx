@@ -1,13 +1,9 @@
-import { forwardRef, useContext } from 'react';
+import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import { ButtonPrimary, Heading3, TextInput } from '../../components';
+import { AuthDialog, TextInput } from '../../components';
 import { login, putAccessToken } from '../../utils';
-import styles from './styles.module.css';
-import { ThemeContext } from '../../contexts';
 
 export const LoginDialog = forwardRef(function LoginDialog({ close }, ref) {
-  const { theme } = useContext(ThemeContext);
-
   const onSubmit = async (event) => {
     event.preventDefault();
     const [email, password] = event.target;
@@ -23,25 +19,12 @@ export const LoginDialog = forwardRef(function LoginDialog({ close }, ref) {
       close();
     }
   };
+
   return (
-    <dialog
-      ref={ref}
-      onClick={(event) => {
-        if (event.target.tagName.toLowerCase() === 'dialog') {
-          close();
-        }
-      }}
-    >
-      <section data-theme={theme} className={styles.login_container}>
-        <button onClick={close} />
-        <Heading3>Login</Heading3>
-        <form onSubmit={onSubmit}>
-          <TextInput id="email" label="Email" type="email" placeholder="Enter your email" />
-          <TextInput id="password" label="Password" type="password" placeholder="Enter your password" />
-          <ButtonPrimary fullWidth>Login</ButtonPrimary>
-        </form>
-      </section>
-    </dialog>
+    <AuthDialog ref={ref} formLabel="Login" onSubmit={onSubmit} close={close}>
+      <TextInput id="email" label="Email" type="email" placeholder="Enter your email" />
+      <TextInput id="password" label="Password" type="password" placeholder="Enter your password" />
+    </AuthDialog>
   );
 });
 

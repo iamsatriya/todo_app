@@ -45,7 +45,7 @@
 }
 
 /* STYLE FOR LOGIN POPUP */
-dialog:modal {
+/* dialog:modal {
   border: none;
 }
 dialog::backdrop {
@@ -100,4 +100,4 @@ dialog::backdrop {
   .login_container > button {
     display: none;
   }
-}
+} */
