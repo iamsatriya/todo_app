@@ -43,3 +43,61 @@
 .separator_text[data-theme='dark'] {
   color: var(--white-color);
 }
+
+/* STYLE FOR LOGIN POPUP */
+dialog:modal {
+  border: none;
+}
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.login_container {
+  position: inherit;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--white-color);
+  text-align: center;
+  padding-top: 1rem;
+  border-top-left-radius: 1.6rem;
+  border-top-right-radius: 1.6rem;
+}
+
+.login_container[data-theme='dark'] {
+  background-color: var(--black-color);
+}
+
+.login_container > button {
+  width: 9rem;
+  height: 0.8rem;
+  border-radius: 0.4rem;
+  border: none;
+  background-color: var(--primary-color);
+  margin-bottom: 1.6rem;
+}
+
+.login_container form {
+  padding-right: 2.4rem;
+  padding-left: 2.4rem;
+  margin-bottom: 1.6rem;
+}
+
+.login_container form button {
+  margin-top: 4rem;
+}
+
+@media screen and (min-width: 450px) {
+  .login_container {
+    max-width: 50rem;
+    margin: 0 auto;
+    bottom: 50%;
+    transform: translateY(50%);
+    border-radius: 1.6rem;
+    padding-top: 1.6rem;
+  }
+
+  .login_container > button {
+    display: none;
+  }
+}

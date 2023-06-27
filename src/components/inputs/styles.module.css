@@ -1,0 +1,26 @@
+.label {
+  display: block;
+  text-align: start;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+}
+
+.input {
+  width: 100%;
+  background-color: transparent;
+  border-radius: 0.8rem;
+  border: 1px solid var(--primary-color);
+  padding: 0.8rem 0.8rem;
+  margin-bottom: 1.6rem;
+  outline: none;
+}
+
+.input::placeholder {
+  font-size: 1.6rem;
+}
+
+.input[data-theme='dark'] {
+  color: var(--white-color);
+}
