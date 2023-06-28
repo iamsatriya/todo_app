@@ -3,17 +3,16 @@ import styles from './styles.module.css';
 import { useContext } from 'react';
 import { ThemeContext } from '../../contexts';
 
-export const Heading3 = ({ children, invert }) => {
+export const Text2 = ({ children }) => {
   const { theme } = useContext(ThemeContext);
 
   return (
-    <h3 data-theme={theme} className={invert && styles.invert}>
+    <p data-theme={theme} className={styles.text2}>
       {children}
-    </h3>
+    </p>
   );
 };
 
-Heading3.propTypes = {
-  children: PropTypes.node.isRequired,
-  invert: PropTypes.bool
+Text2.propTypes = {
+  children: PropTypes.node.isRequired
 };

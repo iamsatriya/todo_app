@@ -1,0 +1,38 @@
+.task_container {
+  margin: 1.6rem 0;
+}
+
+.task_container__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.list_container {
+  overflow-x: scroll;
+  display: flex;
+  width: 100%;
+}
+
+.list_container article {
+  border: 1px solid var(--primary-color);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-right: 1.6rem;
+  padding: 0.8rem;
+  border-radius: 0.8rem;
+}
+
+.list_container article:last-child {
+  margin-right: 0;
+}
+
+.list_container article p {
+  margin: 0.8rem 0;
+}
+
+.list_container article p:nth-of-type(2) {
+  color: var(--grey-color);
+}

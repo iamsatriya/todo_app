@@ -1,8 +1,8 @@
 import { forwardRef, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { ThemeContext } from '../../contexts';
-import { ButtonPrimary } from '../buttons';
-import { Heading3 } from '../headings';
+import { PrimaryButton } from '../buttons';
+import { Heading3 } from '../typography';
 
 import styles from './styles.module.css';
 
@@ -23,7 +23,7 @@ export const AuthDialog = forwardRef(function AuthDialog({ formLabel, close, onS
         <Heading3>{formLabel}</Heading3>
         <form onSubmit={onSubmit}>
           {children}
-          <ButtonPrimary fullWidth>{formLabel}</ButtonPrimary>
+          <PrimaryButton fullWidth>{formLabel}</PrimaryButton>
         </form>
       </section>
     </dialog>

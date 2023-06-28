@@ -1,6 +1,6 @@
 import FullLogo from '../../assets/images/logo-full.svg';
 import styles from './styles.module.css';
-import { Heading1 } from '../headings';
+import { Heading1 } from '../typography';
 import { useContext } from 'react';
 import { ThemeContext } from '../../contexts';
 
