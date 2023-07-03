@@ -29,7 +29,9 @@
   color: var(--grey-color);
 }
 
-.welcome_container > button {
+.new_task_container {
+  width: 100%;
+  max-width: 40rem;
   margin-top: 1.8rem;
 }
 
@@ -40,4 +42,11 @@
   margin-top: 1.6rem;
   border-radius: 1.6rem;
   background-color: rgba(121, 183, 145, 0.4);
+}
+
+@media screen and (min-width: 450px) {
+  .no_task_container {
+    padding-left: 4.8rem;
+    padding-right: 4.8rem;
+  }
 }

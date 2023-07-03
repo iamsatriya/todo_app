@@ -1,10 +1,15 @@
 import PropTypes from 'prop-types';
-import { MdArchive, MdDeleteForever } from 'react-icons/md';
-import { formatLongDate } from '../../utils';
 import { Heading4, Text2 } from '../typography';
 import styles from './styles.module.css';
+import { ActiveTaskItem, ArchivedTaskItem } from '../task-item';
 
-export const ListBase = ({ title, list }) => {
+export const ListBase = ({
+  title,
+  list,
+  isActiveList,
+  isArchivedList,
+  onSetActive,
+}) => {
   return (
     <section className={styles.task_container}>
       <section className={styles.task_container__header}>
@@ -13,24 +18,25 @@ export const ListBase = ({ title, list }) => {
       </section>
       <section className={styles.list_container}>
         {list && list.length ? (
-          list.map((note) => (
-            <article key={note.id} style={{ minWidth: list.length > 1 ? '80%' : '100%' }}>
-              <Text2>{note.title}</Text2>
-              <p>{formatLongDate(new Date(note.createdAt))}</p>
-              <p>{note.body}</p>
-              <section className={styles.active_task_action_container}>
-                <button>Set as Active</button>
-                <section className={styles.active_task_action_container__inner}>
-                  <button>
-                    <MdArchive />
-                  </button>
-                  <button>
-                    <MdDeleteForever />
-                  </button>
-                </section>
-              </section>
-            </article>
-          ))
+          list.map((task) => {
+            if (isActiveList)
+              return (
+                <ActiveTaskItem
+                  key={task.id}
+                  task={task}
+                  length={list.length}
+                  onSetActive={onSetActive ? onSetActive : () => {}}
+                />
+              );
+            if (isArchivedList)
+              return (
+                <ArchivedTaskItem
+                  key={task.id}
+                  task={task}
+                  length={list.length}
+                />
+              );
+          })
         ) : (
           <p>No task</p>
         )}
@@ -41,5 +47,8 @@ export const ListBase = ({ title, list }) => {
 
 ListBase.propTypes = {
   title: PropTypes.string.isRequired,
-  list: PropTypes.arrayOf(PropTypes.object).isRequired
+  list: PropTypes.arrayOf(PropTypes.object).isRequired,
+  isActiveList: PropTypes.bool,
+  isArchivedList: PropTypes.bool,
+  onSetActive: PropTypes.func,
 };

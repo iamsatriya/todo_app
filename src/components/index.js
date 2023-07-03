@@ -4,4 +4,5 @@ export * from './dialogs';
 export * from './inputs';
 export * from './task-item';
 export * from './task-list';
+export * from './timer';
 export * from './typography';

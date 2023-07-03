@@ -1,11 +1,25 @@
-.hehe {
+.card_fullwidth {
+  width: 100%;
+}
+
+.card_not_fullwidth {
+  width: 80%;
+}
+
+@media screen and (min-width: 450px) {
+  .card {
+    width: 45rem;
+  }
+}
+
+.container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 1.6rem;
 }
 
-.hehe button {
+.container button {
   height: 3.6rem;
   min-width: 3.6rem;
   background-color: var(--primary-color);
@@ -17,16 +31,22 @@
   color: var(--white-color);
   font-weight: 600;
 }
-/* 
-.active_task_action_container section button:last-of-type {
+
+.container section button:last-of-type {
   margin-left: 0.8rem;
 }
 
-.active_task_action_container svg {
+.container svg {
   font-size: 2.4rem;
 }
 
-.active_task_action_container__inner {
+.active_container__inner {
   display: flex;
   align-items: center;
-} */
+}
+
+.archived_container__inner{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}

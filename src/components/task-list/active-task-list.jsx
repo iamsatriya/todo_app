@@ -1,38 +1,38 @@
-import { getActiveNotes } from '../../utils';
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { getActiveNotes } from '../../utils';
 import { ListBase } from './list-base';
 
-export const ActiveTaskList = () => {
+export const ActiveTaskList = ({ onSetActive, filter, activeNoteId }) => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
-      try {
-        const response = await getActiveNotes();
-        setTasks(response.data);
-      } catch (e) {
-        console.log(e);
+      const response = await getActiveNotes();
+      if (!response.error) {
+        const filteredTasks = response.data.filter(
+          (task) =>
+            task.title.toLowerCase().includes(filter.toLowerCase()) &&
+            task.id !== activeNoteId
+        );
+        setTasks(filteredTasks);
       }
     }
     fetchData();
-  }, []);
+  }, [activeNoteId, filter]);
 
   return (
-    <ListBase list={tasks} title="Active Task" />
-    // <section className={styles.task_container}>
-    //   <section className={styles.task_container__header}>
-    //     <Heading4>All Task</Heading4>
-    //     <Text2>( {tasks && tasks.length} )</Text2>
-    //   </section>
-    //   <section className={styles.list_container}>
-    //     {tasks && tasks.length ? (
-    //       tasks.map((task) => <ActiveTaskItem key={task.id} task={task} length={task.length} />)
-    //     ) : (
-    //       <p>No task</p>
-    //     )}
-    //   </section>
-    // </section>
+    <ListBase
+      isActiveList
+      list={tasks}
+      title='Active Task'
+      onSetActive={onSetActive}
+    />
   );
 };
 
-ActiveTaskList.propTypes = {};
+ActiveTaskList.propTypes = {
+  filter: PropTypes.string.isRequired,
+  activeNoteId: PropTypes.string.isRequired,
+  onSetActive: PropTypes.func.isRequired,
+};
