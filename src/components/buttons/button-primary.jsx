@@ -3,7 +3,7 @@ import styles from './styles.module.css';
 import { useContext } from 'react';
 import { ThemeContext } from '../../contexts';
 
-export const ButtonPrimary = ({ children, type, fullWidth, onClick }) => {
+export const PrimaryButton = ({ children, type, fullWidth, onClick }) => {
   const { theme } = useContext(ThemeContext);
 
   return (
@@ -18,7 +18,7 @@ export const ButtonPrimary = ({ children, type, fullWidth, onClick }) => {
   );
 };
 
-ButtonPrimary.propTypes = {
+PrimaryButton.propTypes = {
   children: PropTypes.node.isRequired,
   fullWidth: PropTypes.bool,
   type: PropTypes.string,

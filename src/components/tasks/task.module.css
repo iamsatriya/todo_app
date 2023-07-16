@@ -1,0 +1,111 @@
+.container {
+  margin-top: 1.6rem;
+}
+
+.title_container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.6rem;
+}
+
+@media screen and (min-width: 500px) {
+  .card_list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .card_list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.card_container {
+  margin: 1rem;
+  margin-bottom: 2rem;
+  padding: 0.8rem;
+  border-radius: 1.6rem;
+  border: 1px solid var(--primary-color);
+  box-shadow: 0 0 0.5rem var(--primary-light-color),
+    0 0 1rem var(--primary-color);
+  width: calc(100% - 2rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.body_container {
+  position: relative;
+}
+
+.body_container::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 5rem;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, var(--white-color), transparent);
+}
+
+.body_container[data-theme='dark']::after {
+  background: linear-gradient(to top, var(--black-color), transparent);
+}
+
+.outer_action_container,
+.archived_outer_action_container {
+  margin-top: 2.4rem;
+  display: flex;
+  align-items: center;
+}
+
+.outer_action_container {
+  justify-content: space-between;
+}
+
+.archived_outer_action_container {
+  justify-content: flex-end;
+}
+
+.active_button {
+  border: none;
+  padding: 0.8rem;
+  border-radius: 0.8rem;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+
+.active_button[data-theme='dark'] {
+  background-color: var(--primary-light-color);
+  color: var(--black-color);
+}
+
+.inner_action_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.action_button {
+  color: var(--white-color);
+  background-color: var(--primary-color);
+  border: none;
+  padding: 0.8rem;
+  font-size: 2rem;
+  border-radius: 0.8rem;
+  display: grid;
+  place-items: center;
+}
+
+.action_button[data-theme='dark'] {
+  color: var(--black-color);
+  background-color: var(--primary-light-color);
+}
+
+.action_button:first-of-type {
+  margin-right: 0.8rem;
+}

@@ -1,5 +1,5 @@
 import { useMemo, useState, useEffect } from 'react';
-import { AuthenticationPages } from './pages';
+import { HomePage } from './pages';
 import { ThemeProvider } from './contexts';
 import { getLocalTheme, setLocalTheme } from './utils';
 
@@ -21,14 +21,14 @@ function App() {
   const themeContextValue = useMemo(() => {
     return {
       theme,
-      toggleTheme
+      toggleTheme,
     };
   }, [theme]);
 
   return (
     <>
       <ThemeProvider value={themeContextValue}>
-        <AuthenticationPages />
+        <HomePage />
       </ThemeProvider>
     </>
   );

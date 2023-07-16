@@ -1,15 +1,33 @@
-h1 {
+.h1 {
   font-family: 'Montserrat', sans-serif;
   font-size: 4rem;
 }
 
-h3 {
+.h3 {
   font-family: 'Montserrat', sans-serif;
   font-size: 2.4rem;
 }
 
-h1[data-theme='dark'],
-h3[data-theme='dark'] {
+.h4 {
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+
+.text {
+  font-size: 1.6rem;
+}
+
+.semibold {
+  font-weight: 600;
+}
+
+.light {
+  color: var(--grey-color);
+}
+
+.h1[data-theme='dark'],
+.h3[data-theme='dark'],
+.text[data-theme='dark'] {
   background-color: transparent;
 }
 
