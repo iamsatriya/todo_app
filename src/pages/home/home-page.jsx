@@ -11,9 +11,10 @@ import {
   ArchivedTaskList,
   AuthDialog,
   TextInput,
+  Toast,
 } from '../../components';
 import { ThemeContext } from '../../contexts';
-import { useDialog } from '../../hooks';
+import { useDialog, useToast } from '../../hooks';
 import {
   archiveNote,
   deleteNote,
@@ -39,6 +40,10 @@ export const HomePage = () => {
   const onSearch = (event) => {
     setSearch(event.target.value);
   };
+
+  const { isShowToast, showToast, toastTitle } = useToast();
+
+  // TODO: implement toast in add active task, pending active task, finish active task, archive task, unarchive task, delete task
 
   const [name, setName] = useState('');
 
@@ -122,7 +127,12 @@ export const HomePage = () => {
 
   return (
     <>
-      <NewTaskDialog ref={dialogRef} close={onCloseDialog} />
+      <NewTaskDialog
+        ref={dialogRef}
+        close={onCloseDialog}
+        onShowToast={showToast}
+      />
+      <Toast text={toastTitle} isShowToast={isShowToast} />
       <HomePageHeader />
       <main>
         <section className={styles.main_heading_container}>
@@ -144,6 +154,7 @@ export const HomePage = () => {
                 task={activeTask}
                 onRemove={onRemoveTask}
                 onArchive={onArchive}
+                onShowToast={showToast}
               />
             )}
             {!activeTask && <NoActiveTask />}
@@ -162,6 +173,7 @@ export const HomePage = () => {
           onArchive={onArchive}
           onDelete={onDelete}
           onSetActive={onSetActive}
+          onShowToast={showToast}
         />
         <ArchivedTaskList
           tasks={filteredArchived}
@@ -173,16 +185,19 @@ export const HomePage = () => {
   );
 };
 
-const NewTaskDialog = forwardRef(function NewTaskDialog({ close }, ref) {
+const NewTaskDialog = forwardRef(function NewTaskDialog(
+  { close, onShowToast },
+  ref
+) {
   const onSubmit = async (event) => {
     event.preventDefault();
     const [title, body] = event.target;
     try {
-      const { error, data } = await addNote({
+      onShowToast('Create new notes!');
+      const { error } = await addNote({
         title: title.value,
         body: body.value,
       });
-      console.log('responsedata', data);
       if (!error) {
         location.reload();
       }
@@ -191,7 +206,6 @@ const NewTaskDialog = forwardRef(function NewTaskDialog({ close }, ref) {
     } finally {
       close();
     }
-    console.log(event);
   };
   return (
     <AuthDialog
@@ -218,6 +232,7 @@ const NewTaskDialog = forwardRef(function NewTaskDialog({ close }, ref) {
 
 NewTaskDialog.propTypes = {
   close: PropTypes.func.isRequired,
+  onShowToast: PropTypes.func.isRequired,
 };
 
 const SearchSection = forwardRef(function SearchSection(
@@ -295,17 +310,19 @@ const TimeEstablish = () => {
   );
 };
 
-const ActiveTask = ({ task, onRemove, onArchive }) => {
+const ActiveTask = ({ task, onRemove, onArchive, onShowToast }) => {
   const { theme } = useContext(ThemeContext);
 
   const { id, title, body, createdAt } = task;
   const onPending = () => {
+    onShowToast('Put your notes to All Task list');
     onRemove();
   };
 
   const onFinish = async () => {
     const { error } = await archiveNote(id);
     if (!error) {
+      onShowToast('Put your notes to Archived Task list');
       onArchive(id);
       onRemove();
     }
@@ -341,6 +358,7 @@ ActiveTask.propTypes = {
   task: PropTypes.object.isRequired,
   onRemove: PropTypes.func.isRequired,
   onArchive: PropTypes.func.isRequired,
+  onShowToast: PropTypes.func.isRequired,
 };
 
 const NoActiveTask = () => {

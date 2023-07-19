@@ -1,0 +1,42 @@
+.toast_container {
+  position: fixed;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  opacity: 1;
+  animation: fadeIn 1s, fadeOut 1s 1s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.toast_text_container {
+  border-radius: 0.8rem;
+  background-color: var(--grey-color);
+  color: var(--white-color);
+  padding: 1rem 3rem;
+}
+
+.toast_text_container[data-theme='dark'] {
+  background-color: var(--black-color);
+  color: var(--white-color);
+}
