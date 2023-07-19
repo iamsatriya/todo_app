@@ -7,10 +7,16 @@ export const TextInput = ({ id, label, placeholder, type }) => {
   const { theme } = useContext(ThemeContext);
   return (
     <>
-      <label htmlFor={id || label} className={styles.label}>
+      <label data-theme={theme} htmlFor={id || label} className={styles.label}>
         {label}
       </label>
-      <input data-theme={theme} id={id || label} type={type} placeholder={placeholder} className={styles.input} />
+      <input
+        data-theme={theme}
+        id={id || label}
+        type={type}
+        placeholder={placeholder}
+        className={styles.input}
+      />
     </>
   );
 };
@@ -19,5 +25,5 @@ TextInput.propTypes = {
   id: PropTypes.string,
   placeholder: PropTypes.string,
   type: PropTypes.string,
-  label: PropTypes.string.isRequired
+  label: PropTypes.string.isRequired,
 };

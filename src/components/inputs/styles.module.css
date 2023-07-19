@@ -5,6 +5,11 @@
   font-size: 1.6rem;
   font-weight: 600;
   margin-bottom: 0.8rem;
+  color: var(--black-color);
+}
+
+.label[data-theme='dark'] {
+  color: var(--white-color);
 }
 
 .input {

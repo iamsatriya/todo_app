@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-export const UseDialog = () => {
+export const useDialog = () => {
   const ref = useRef();
   const showDialog = () => {
     ref.current.showModal();

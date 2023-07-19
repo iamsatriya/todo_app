@@ -27,7 +27,9 @@
 
 .h1[data-theme='dark'],
 .h3[data-theme='dark'],
+.h4[data-theme='dark'],
 .text[data-theme='dark'] {
+  color: var(--white-color);
   background-color: transparent;
 }
 

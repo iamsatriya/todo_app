@@ -9,7 +9,7 @@ export const Heading3 = ({ children, invert }) => {
   return (
     <h3
       data-theme={theme}
-      className={`${invert && styles.invert} ${styles.h1}`}
+      className={`${invert && styles.invert} ${styles.h3}`}
     >
       {children}
     </h3>

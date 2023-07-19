@@ -30,7 +30,9 @@ export const ActiveTaskList = ({ tasks, onArchive, onDelete, onSetActive }) => {
                   onSetActive(task);
                 }}
               >
-                <Text semibold>Set to Active</Text>
+                <Text semibold invert>
+                  Set to Active
+                </Text>
               </button>
               <section className={styles.inner_action_container}>
                 <button

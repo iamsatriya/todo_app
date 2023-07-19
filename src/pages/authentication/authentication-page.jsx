@@ -4,14 +4,14 @@ import styles from './styles.module.css';
 import { ThemeContext } from '../../contexts';
 import { LoginDialog } from './login-dialog';
 import { RegisterDialog } from './register-dialog';
-import { UseDialog } from '../../hooks';
+import { useDialog } from '../../hooks';
 
 export const AuthenticationPage = () => {
   const { theme } = useContext(ThemeContext);
 
-  const { ref: loginRef, showDialog: showLogin, closeDialog: closeLogin } = UseDialog();
+  const { ref: loginRef, showDialog: showLogin, closeDialog: closeLogin } = useDialog();
 
-  const { ref: registerRef, showDialog: showRegister, closeDialog: closeRegister } = UseDialog();
+  const { ref: registerRef, showDialog: showRegister, closeDialog: closeRegister } = useDialog();
 
   return (
     <>

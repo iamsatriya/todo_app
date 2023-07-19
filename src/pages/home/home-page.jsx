@@ -1,6 +1,6 @@
 import { forwardRef, useContext, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { MdOutlineSearch } from 'react-icons/md';
+import { MdOutlineSearch, MdModeNight, MdLightMode } from 'react-icons/md';
 import styles from './home.module.css';
 import LogoSmall from '../../assets/images/logo-small.svg';
 import {
@@ -9,8 +9,11 @@ import {
   Text,
   ActiveTaskList,
   ArchivedTaskList,
+  AuthDialog,
+  TextInput,
 } from '../../components';
 import { ThemeContext } from '../../contexts';
+import { useDialog } from '../../hooks';
 import {
   archiveNote,
   deleteNote,
@@ -26,6 +29,7 @@ import {
   setStorageActiveTask,
   removeStorageActiveTask,
   getStorageActiveTaskStartDate,
+  addNote,
 } from '../../utils';
 
 export const HomePage = () => {
@@ -40,8 +44,8 @@ export const HomePage = () => {
 
   const [activeTask, setActiveTask] = useState();
   const onSetActive = (task) => {
-    setActiveTask(task);
     setStorageActiveTask(task.id);
+    setActiveTask(task);
   };
   const onRemoveTask = () => {
     setActiveTask(undefined);
@@ -57,7 +61,7 @@ export const HomePage = () => {
       setActiveTaskList(responseActive.data);
       const taskId = getStorageActiveTaskId();
       if (taskId) {
-        const task = responseActive.data.find((task) => task.id);
+        const task = responseActive.data.find((task) => task.id === taskId);
         if (task) {
           setActiveTask(task);
         }
@@ -110,8 +114,15 @@ export const HomePage = () => {
     onFetchTask();
   }, []);
 
+  const {
+    ref: dialogRef,
+    showDialog: onShowDialog,
+    closeDialog: onCloseDialog,
+  } = useDialog();
+
   return (
     <>
+      <NewTaskDialog ref={dialogRef} close={onCloseDialog} />
       <HomePageHeader />
       <main>
         <section className={styles.main_heading_container}>
@@ -122,7 +133,9 @@ export const HomePage = () => {
             <Text semibold>Today is {getDay(today)}</Text>
             <Text light>{getShortDate(today)}</Text>
             <section className={styles.greeting_button_container}>
-              <PrimaryButton fullWidth>+ Add New Task</PrimaryButton>
+              <PrimaryButton fullWidth onClick={onShowDialog}>
+                + Add New Task
+              </PrimaryButton>
             </section>
           </section>
           <section className={styles.selected_task_container}>
@@ -158,6 +171,53 @@ export const HomePage = () => {
       </main>
     </>
   );
+};
+
+const NewTaskDialog = forwardRef(function NewTaskDialog({ close }, ref) {
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    const [title, body] = event.target;
+    try {
+      const { error, data } = await addNote({
+        title: title.value,
+        body: body.value,
+      });
+      console.log('responsedata', data);
+      if (!error) {
+        location.reload();
+      }
+    } catch (e) {
+      console.log(e);
+    } finally {
+      close();
+    }
+    console.log(event);
+  };
+  return (
+    <AuthDialog
+      ref={ref}
+      formLabel='New Task'
+      onSubmit={onSubmit}
+      close={close}
+    >
+      <TextInput
+        id='title'
+        label='Title'
+        type='text'
+        placeholder='Title goes here'
+      />
+      <TextInput
+        id='body'
+        label='Body'
+        type='text'
+        placeholder='Body goes here'
+      />
+    </AuthDialog>
+  );
+});
+
+NewTaskDialog.propTypes = {
+  close: PropTypes.func.isRequired,
 };
 
 const SearchSection = forwardRef(function SearchSection(
@@ -293,10 +353,24 @@ const NoActiveTask = () => {
 };
 
 const HomePageHeader = () => {
+  const { theme, toggleTheme } = useContext(ThemeContext);
+
   return (
     <header className={styles.header}>
       <img src={LogoSmall} className={styles.header_image} />
-      <div>hamburger menu</div>
+      <div className={styles.header}>
+        <button
+          data-theme={theme}
+          className={styles.theme_mode_button}
+          onClick={toggleTheme}
+        >
+          {theme === 'dark' ? (
+            <MdModeNight size={36} />
+          ) : (
+            <MdLightMode size={36} />
+          )}
+        </button>
+      </div>
     </header>
   );
 };
