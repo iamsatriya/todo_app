@@ -1,7 +1,7 @@
 :root {
   --white-color: #e9e9e9;
   --black-color: #191919;
-  --grey-color: #6D6D6D;
+  --grey-color: #6d6d6d;
   --primary-color: #79b791;
   --primary-light-color: #abd1b5;
 }
@@ -27,6 +27,12 @@ body {
 
 #root {
   height: 100%;
+}
+
+a,
+a:visited {
+  color: inherit;
+  text-decoration: none;
 }
 
 *,

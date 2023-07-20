@@ -1,0 +1,17 @@
+.detail_container {
+  display: flex;
+  justify-content: center;
+}
+.task_detail_container {
+  max-width: 60rem;
+  display: grid;
+  gap: 1.6rem;
+}
+
+.task_detail_header {
+  margin-bottom: 1.6rem;
+}
+
+.back_button {
+  color: var(--primary-color);
+}

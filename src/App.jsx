@@ -1,7 +1,9 @@
 import { useMemo, useState, useEffect } from 'react';
-import { HomePage } from './pages';
+import { AuthenticationPage, ErrorPage, HomePage, TasksDetail } from './pages';
 import { ThemeProvider } from './contexts';
 import { getLocalTheme, setLocalTheme } from './utils';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { taskLoader, userLoader } from './routes';
 
 function App() {
   const [theme, setTheme] = useState(() => {
@@ -25,10 +27,29 @@ function App() {
     };
   }, [theme]);
 
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <HomePage />,
+      errorElement: <ErrorPage />,
+      loader: userLoader,
+    },
+    {
+      path: '/auth',
+      element: <AuthenticationPage />,
+    },
+    {
+      path: 'task/:taskId',
+      element: <TasksDetail />,
+      loader: taskLoader,
+      errorElement: <ErrorPage />,
+    },
+  ]);
+
   return (
     <>
       <ThemeProvider value={themeContextValue}>
-        <HomePage />
+        <RouterProvider router={router} />
       </ThemeProvider>
     </>
   );

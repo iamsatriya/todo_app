@@ -1,6 +1,11 @@
 import { forwardRef, useContext, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { MdOutlineSearch, MdModeNight, MdLightMode } from 'react-icons/md';
+import {
+  MdOutlineSearch,
+  MdModeNight,
+  MdLightMode,
+  MdLogout,
+} from 'react-icons/md';
 import styles from './home.module.css';
 import LogoSmall from '../../assets/images/logo-small.svg';
 import {
@@ -23,7 +28,6 @@ import {
   getDay,
   getGreetings,
   getShortDate,
-  getUserLogged,
   unarchiveNote,
   getTimeEstablished,
   getStorageActiveTaskId,
@@ -31,9 +35,21 @@ import {
   removeStorageActiveTask,
   getStorageActiveTaskStartDate,
   addNote,
+  removeAccessToken,
 } from '../../utils';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 
 export const HomePage = () => {
+  const { user } = useLoaderData();
+  if (!user || user.error) {
+    throw new Response('', {
+      status: 404,
+      statusText: 'User Not Found',
+    });
+  }
+  const {
+    data: { name },
+  } = user;
   const today = new Date();
   const searchRef = useRef();
   const [search, setSearch] = useState('');
@@ -42,10 +58,6 @@ export const HomePage = () => {
   };
 
   const { isShowToast, showToast, toastTitle } = useToast();
-
-  // TODO: implement toast in add active task, pending active task, finish active task, archive task, unarchive task, delete task
-
-  const [name, setName] = useState('');
 
   const [activeTask, setActiveTask] = useState();
   const onSetActive = (task) => {
@@ -109,13 +121,6 @@ export const HomePage = () => {
   );
 
   useEffect(() => {
-    const fetchPersonalInformation = async () => {
-      const { error, data } = await getUserLogged();
-      if (!error) {
-        setName(data.name);
-      }
-    };
-    fetchPersonalInformation();
     onFetchTask();
   }, []);
 
@@ -372,6 +377,7 @@ const NoActiveTask = () => {
 
 const HomePageHeader = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
+  const navigate = useNavigate();
 
   return (
     <header className={styles.header}>
@@ -387,6 +393,16 @@ const HomePageHeader = () => {
           ) : (
             <MdLightMode size={36} />
           )}
+        </button>
+        <button
+          data-theme={theme}
+          className={styles.theme_mode_button}
+          onClick={() => {
+            removeAccessToken();
+            navigate('/auth');
+          }}
+        >
+          <MdLogout size={36} />
         </button>
       </div>
     </header>

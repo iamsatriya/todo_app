@@ -8,13 +8,17 @@ function putAccessToken(accessToken) {
   return localStorage.setItem('accessToken', accessToken);
 }
 
+function removeAccessToken() {
+  return localStorage.removeItem('accessToken');
+}
+
 async function fetchWithToken(url, options = {}) {
   return fetch(url, {
     ...options,
     headers: {
       ...options.headers,
-      Authorization: `Bearer ${getAccessToken()}`
-    }
+      Authorization: `Bearer ${getAccessToken()}`,
+    },
   });
 }
 
@@ -22,9 +26,9 @@ async function login({ email, password }) {
   const response = await fetch(`${BASE_URL}/login`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ email, password })
+    body: JSON.stringify({ email, password }),
   });
 
   const responseJson = await response.json();
@@ -41,9 +45,9 @@ async function register({ name, email, password }) {
   const response = await fetch(`${BASE_URL}/register`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ name, email, password })
+    body: JSON.stringify({ name, email, password }),
   });
 
   const responseJson = await response.json();
@@ -71,9 +75,9 @@ async function addNote({ title, body }) {
   const response = await fetchWithToken(`${BASE_URL}/notes`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ title, body })
+    body: JSON.stringify({ title, body }),
   });
 
   const responseJson = await response.json();
@@ -120,7 +124,7 @@ async function getNote(id) {
 
 async function archiveNote(id) {
   const response = await fetchWithToken(`${BASE_URL}/notes/${id}/archive`, {
-    method: 'POST'
+    method: 'POST',
   });
 
   const responseJson = await response.json();
@@ -134,7 +138,7 @@ async function archiveNote(id) {
 
 async function unarchiveNote(id) {
   const response = await fetchWithToken(`${BASE_URL}/notes/${id}/unarchive`, {
-    method: 'POST'
+    method: 'POST',
   });
 
   const responseJson = await response.json();
@@ -148,7 +152,7 @@ async function unarchiveNote(id) {
 
 async function deleteNote(id) {
   const response = await fetchWithToken(`${BASE_URL}/notes/${id}`, {
-    method: 'DELETE'
+    method: 'DELETE',
   });
 
   const responseJson = await response.json();
@@ -163,6 +167,7 @@ async function deleteNote(id) {
 export {
   getAccessToken,
   putAccessToken,
+  removeAccessToken,
   login,
   register,
   getUserLogged,
@@ -172,5 +177,5 @@ export {
   getNote,
   archiveNote,
   unarchiveNote,
-  deleteNote
+  deleteNote,
 };

@@ -4,6 +4,10 @@
   align-items: center;
 }
 
+.header button:first-of-type {
+  margin-right: 0.8rem;
+}
+
 .header_image {
   width: 4rem;
 }

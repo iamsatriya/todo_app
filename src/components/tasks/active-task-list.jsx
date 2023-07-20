@@ -6,6 +6,7 @@ import { TaskList } from './task-list';
 import { getShortDate } from '../../utils';
 import { ThemeContext } from '../../contexts';
 import { Text } from '../typography';
+import { Link } from 'react-router-dom';
 
 export const ActiveTaskList = ({ tasks, onArchive, onDelete, onSetActive }) => {
   const { theme } = useContext(ThemeContext);
@@ -16,7 +17,9 @@ export const ActiveTaskList = ({ tasks, onArchive, onDelete, onSetActive }) => {
         return (
           <section key={task.id} className={styles.card_container}>
             <section>
-              <Text semibold>{task.title}</Text>
+              <Link to={`task/${task.id}`}>
+                <Text semibold>{task.title}</Text>
+              </Link>
               <Text light>{getShortDate(new Date(task.createdAt))}</Text>
               <section data-theme={theme} className={styles.body_container}>
                 <p>{task.body}</p>
